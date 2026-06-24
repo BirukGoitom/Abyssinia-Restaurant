@@ -12,7 +12,7 @@ public class FileManager {
 
     private static final String DATA_DIR = "data";
 
-    public static final String USERS_FILE         = DATA_DIR + "/users.txt";
+    public static final String USERS_FILE          = DATA_DIR + "/users.txt";
     public static final String FOOD_MENU_FILE      = DATA_DIR + "/food_menu.txt";
     public static final String DRINKS_MENU_FILE    = DATA_DIR + "/drinks_menu.txt";
     public static final String ORDERS_FILE         = DATA_DIR + "/orders.txt";
