@@ -172,3 +172,73 @@ private void logLogin(String username) {
     }
 
 
+
+public boolean updateProfile(String username, String newName, String newPassword) {
+        User user = findByUsername(username);
+        if (user == null) return false;
+        if (newName     != null && !newName.trim().isEmpty())     user.setName(newName);
+        if (newPassword != null && !newPassword.trim().isEmpty()) user.setPassword(newPassword);
+        if (mode == StorageMode.FILE) {
+            saveToFile();
+        } else {
+            try (PreparedStatement ps = connection.prepareStatement(
+                    "UPDATE users SET name = ?, password = ? WHERE id = ?")) {
+                ps.setString(1, user.getName());
+                ps.setString(2, user.getPassword());
+                ps.setInt(3, getUserId(user));
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println("Error updating profile: " + e.getMessage());
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+private void saveToFile() {
+        List<String> lines = new ArrayList<>();
+        for (User u : users)
+            lines.add(getUserId(u) + "|" + u.getName() + "|" + u.getUsername() + "|" + u.getPassword() + "|" + getRole(u));
+        fileManager.writeLines(FileManager.USERS_FILE, lines);
+    }
+
+    private String getRole(User user) {
+        return user instanceof RestaurantOwner ? "RestaurantOwner" : "Customer";
+    }
+
+    private int nextId() {
+        int max = 0;
+        for (User u : users) if (getUserId(u) > max) max = getUserId(u);
+        return max + 1;
+    }
+
+
+private int getUserId(User user) {
+        try {
+            Class<?> cls = user.getClass();
+            java.lang.reflect.Field idField = null;
+            while (cls != null) {
+                try {
+                    idField = cls.getDeclaredField("id");
+                    break;
+                } catch (NoSuchFieldException ignored) {
+                    cls = cls.getSuperclass();
+                }
+            }
+            if (idField == null) throw new NoSuchFieldException("id");
+            idField.setAccessible(true);
+            return idField.getInt(user);
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException("Unable to access user id", e);
+        }
+    }
+
+
+public User findByUsername(String username) {
+        for (User u : users) if (u.getUsername().equalsIgnoreCase(username)) return u;
+        return null;
+    }
+
+    public List<User> getAllUsers() { return users; }
+}
