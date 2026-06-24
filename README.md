@@ -5,6 +5,7 @@ The project supports both **text file storage** and **MySQL database storage**.
 
 ## Features
 
+
 - Customer and restaurant owner sign up
 - Login system
 - View food and drink menus
