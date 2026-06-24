@@ -1,3 +1,6 @@
+package src.model;
+
+
 public class RestaurantOwner extends User {
 
     public RestaurantOwner(int id, String name, String username, String password) {
