@@ -8,8 +8,9 @@ public class Customer extends User {
         super(name, username, password);
     }
 
-    
+
     public String getRole() {
         return "Customer";
     }
+    
 }
