@@ -64,7 +64,7 @@ Abyssinia Restaurant/
 
 ## Database Setup
 
-If you want to use MySQL mode:
+You want to use MySQL mode:
 
 1. Start MySQL on your local machine.
 2. Create the database and tables using the SQL file:
