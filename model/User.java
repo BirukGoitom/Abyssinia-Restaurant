@@ -1,5 +1,3 @@
-package src.model;
-
 
 public abstract class User {
     private int id;

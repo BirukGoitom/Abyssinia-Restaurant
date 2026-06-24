@@ -1,14 +1,8 @@
-package src.service;
-
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
-import src.model.Customer;
-import src.model.RestaurantOwner;
-import src.model.User;
 
 import java.io.IOException;
 import java.nio.file.Files;

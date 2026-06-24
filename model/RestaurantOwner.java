@@ -1,5 +1,3 @@
-package src.model;
-
 
 public class RestaurantOwner extends User {
 
